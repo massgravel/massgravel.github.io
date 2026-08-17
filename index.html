@@ -2,10 +2,10 @@
 # Having trouble launching this script? Check <a href="https://massgrave.dev">https://massgrave.dev</a> for help.<hr><pre>
 
 if (-not $args) {
-    Write-Host ''
+    Write-Host
     Write-Host 'Need help? Check our homepage: ' -NoNewline
     Write-Host 'https://massgrave.dev' -ForegroundColor Green
-    Write-Host ''
+    Write-Host
 }
 
 & {
@@ -125,11 +125,11 @@ if (-not $args) {
             Write-Warning "Command is running with x86 Powershell, run it with x64 Powershell instead..."
             return
         }
-        $p = saps -FilePath $env:ComSpec -ArgumentList "/c """"$FilePath"" -el -qedit $args""" -Verb RunAs -PassThru
+        $p = Start-Process -FilePath $env:ComSpec -ArgumentList "/c """"$FilePath"" -el -qedit $args""" -Verb RunAs -PassThru
         $p.WaitForExit()
     }
     else {
-        saps -FilePath $env:ComSpec -ArgumentList "/c """"$FilePath"" -el $args""" -Wait -Verb RunAs
+        Start-Process -FilePath $env:ComSpec -ArgumentList "/c """"$FilePath"" -el $args""" -Wait -Verb RunAs
     }	
 	
     CheckFile $FilePath
